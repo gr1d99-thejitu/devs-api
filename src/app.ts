@@ -3,7 +3,7 @@ import { config } from '../config'
 import express from 'express'
 import cors from 'cors'
 
-import appRouter from './routes/api/v1'
+import appRouter from './api/v1/routes'
 
 const app = express()
 

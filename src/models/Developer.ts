@@ -18,9 +18,9 @@ export class Developer extends BaseEntity {
   @JoinColumn()
   user: User
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamptz', default: 'now()' })
   public readonly createdAt: Date
 
-  @UpdateDateColumn({ type: 'timestamptz', default: 'CURRENT_TIMESTAMP(6)', onUpdate: 'CURRENT_TIMESTAMP(6)' })
+  @UpdateDateColumn({ type: 'timestamptz', default: 'now()', onUpdate: 'now()' })
   public readonly updatedAt: Date
 }

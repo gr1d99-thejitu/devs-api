@@ -1,10 +1,11 @@
-import path from 'path'
+import './env-config'
 
-import { Env } from '../types'
-import * as packageJSON from '../../package.json'
+import { Env } from '../src/types'
+import * as packageJSON from '../package.json'
+import { AppDataSource } from './db'
 
 type EnvConfig = {
-  envFile: string
+  dbConfig: typeof AppDataSource
   version: string
   corsOptions: {
     origin: string
@@ -19,7 +20,6 @@ type TConfig = {
 // you can change the API_URL values to the ones defined in your .env.development file
 
 const APP_ENV = process.env.NODE_ENV || 'development'
-const envFile = path.join(process.cwd(), `.env.${process.env.NODE_ENV || 'development'}`)
 
 const corsOptions = {
   origin: '*'
@@ -28,19 +28,19 @@ const corsOptions = {
 const test: EnvConfig = {
   version: packageJSON.version,
   corsOptions,
-  envFile
+  dbConfig: AppDataSource
 }
 
 const development: EnvConfig = {
   version: packageJSON.version,
   corsOptions,
-  envFile
+  dbConfig: AppDataSource
 }
 
 const production: EnvConfig = {
   version: packageJSON.version,
   corsOptions,
-  envFile
+  dbConfig: AppDataSource
 }
 
 const configs: TConfig = { development, production, test }

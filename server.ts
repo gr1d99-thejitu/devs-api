@@ -1,9 +1,10 @@
 import app from './src/app'
-import { AppDataSource } from './src/data-source'
+import { config } from './config'
 
 const port = process.env.PORT || 8080
 
-AppDataSource.initialize()
+config.dbConfig
+  .initialize()
   .then(() => {
     console.group()
     console.info('App datasource initialized!starting application server!')

@@ -11,12 +11,17 @@ export class User extends BaseEntity {
   })
   email: string
 
+  @Column({
+    nullable: false
+  })
+  password: string
+
   @Column()
   full_names: string
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamptz', default: 'now()' })
   public readonly created_at: Date
 
-  @UpdateDateColumn({ type: 'timestamptz', default: 'CURRENT_TIMESTAMP(6)', onUpdate: 'CURRENT_TIMESTAMP(6)' })
+  @UpdateDateColumn({ type: 'timestamptz', default: 'now()', onUpdate: 'CURRENT_TIMESTAMP()' })
   public readonly updated_at: Date
 }

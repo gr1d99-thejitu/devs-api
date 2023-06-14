@@ -1,13 +1,8 @@
-import dotenv from 'dotenv'
-import { config } from './config'
-
-dotenv.config({ path: config.envFile })
+import './env-config'
 
 import 'reflect-metadata'
 import { DataSource } from 'typeorm'
 import * as process from 'process'
-import { User } from './entities/User'
-import { Developer } from './entities/Developer'
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
@@ -18,7 +13,7 @@ export const AppDataSource = new DataSource({
   database: process.env.DB_NAME,
   synchronize: true,
   logging: false,
-  entities: ['./src/entities/*.ts'],
-  migrations: ['./src/migrations/*.ts'],
+  entities: ['./src/models/*.ts'],
+  migrations: ['./db/migrations/*.ts'],
   subscribers: ['./src/subscribers/*.ts']
 })

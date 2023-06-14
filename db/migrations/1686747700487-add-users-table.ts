@@ -15,9 +15,14 @@ export class AddUserTable1686747700487 implements MigrationInterface {
           },
           {
             name: 'email',
-            type: 'text',
+            type: 'varchar',
             isNullable: false,
             isUnique: true
+          },
+          {
+            name: 'password',
+            type: 'varchar',
+            isNullable: false
           },
           {
             name: 'full_names',

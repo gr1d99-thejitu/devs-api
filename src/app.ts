@@ -1,7 +1,4 @@
-import dotenv from 'dotenv'
-import { config } from './config'
-
-dotenv.config({ path: config.envFile })
+import { config } from '../config'
 
 import express from 'express'
 import cors from 'cors'

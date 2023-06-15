@@ -10,6 +10,7 @@ declare global {
       DB_PASS: string
       DB_NAME: string
       DB_HOST: string
+      APP_SECRET_KEY: string
     }
   }
 }

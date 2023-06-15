@@ -2,6 +2,7 @@ import './env-config'
 
 import { Env } from '../src/types'
 import * as packageJSON from '../package.json'
+import './db'
 import { AppDataSource } from './db'
 
 type EnvConfig = {
@@ -47,4 +48,4 @@ const configs: TConfig = { development, production, test }
 
 const config = configs[APP_ENV as Env]
 
-export { config }
+export { config, AppDataSource }

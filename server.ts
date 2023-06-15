@@ -16,6 +16,7 @@ config.dbConfig
     })
   })
   .catch((error: any) => {
+    console.log(error)
     console.group()
     console.error('Datasource initialization error', error.message ?? JSON.stringify(error))
     console.groupEnd()

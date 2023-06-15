@@ -1,10 +1,9 @@
 import './env-config'
 
 import 'reflect-metadata'
-import { DataSource } from 'typeorm'
-import * as process from 'process'
+import { DataSource, DataSourceOptions } from 'typeorm'
 
-export const AppDataSource = new DataSource({
+const dbOptions: DataSourceOptions = {
   type: 'postgres',
   host: process.env.DB_HOST,
   port: 5432,
@@ -12,8 +11,9 @@ export const AppDataSource = new DataSource({
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
   synchronize: true,
-  logging: false,
+  logging: true,
   entities: ['./src/models/*.ts'],
   migrations: ['./db/migrations/*.ts'],
   subscribers: ['./src/subscribers/*.ts']
-})
+}
+export const AppDataSource = new DataSource(dbOptions)

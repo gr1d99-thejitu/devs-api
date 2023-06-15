@@ -35,9 +35,9 @@ class UsersController {
       req.body.password = await UserService.hashPassword(req.body.password)
 
       const user = userRepository.create(req.body)
-
-      const result = await userRepository.save(user)
-      res.status(CREATED).send(result)
+      await userRepository.save(user)
+      const userRecord = await userRepository.findOneBy({ email: req.body.email })
+      res.status(CREATED).send(userRecord)
     } catch (e: any) {
       res.status(BAD_REQUEST).send({ errors: e.driverError ?? JSON.stringify(e) })
     }

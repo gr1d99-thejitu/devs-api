@@ -9,7 +9,7 @@
       "dev": "concurrently --kill-others \" npm run watch\" \"nodemon ./server.ts\"",
       "test": "echo \"Error: no test specified\" && exit 1",
       "start": "ts-node src/index.ts",
-      "typeorm": "typeorm-ts-node-commonjs -d ./config/db.ts"
+      "typeorm": "typeorm-ts-node-commonjs -d ./config"
    },
    "keywords": [],
    "author": "",

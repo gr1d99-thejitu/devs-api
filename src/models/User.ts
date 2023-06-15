@@ -1,6 +1,15 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn, BaseEntity } from 'typeorm'
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+  BaseEntity,
+  Exclusion
+} from 'typeorm'
 
 @Entity('users')
+// @Exclusion('password')
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   readonly id: string
@@ -12,7 +21,8 @@ export class User extends BaseEntity {
   email: string
 
   @Column({
-    nullable: false
+    nullable: false,
+    select: false
   })
   password: string
 

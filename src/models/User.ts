@@ -16,6 +16,8 @@ export class User extends BaseEntity {
   })
   password: string
 
+  static confirm_password: string
+
   @Column()
   full_names: string
 

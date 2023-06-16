@@ -11,6 +11,8 @@ declare global {
       DB_NAME: string
       DB_HOST: string
       APP_SECRET_KEY: string
+      ACCESS_TOKEN_DURATION: string
+      REFRESH_TOKEN_DURATION: string
     }
   }
 }

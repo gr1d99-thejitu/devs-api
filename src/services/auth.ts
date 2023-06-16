@@ -2,6 +2,7 @@ import { User } from '../models/User'
 import { UserRepository } from '../repositories/user'
 import bcrypt from 'bcrypt'
 import jsonwebtoken from 'jsonwebtoken'
+import * as process from 'process'
 
 type AuthCredentials = {
   email: string
@@ -40,7 +41,7 @@ class AuthService {
 
   static async generateJwt(user: User): Promise<string> {
     const secret = process.env.APP_SECRET_KEY
-    const exp = 60 // Seconds
+    const exp = process.env.ACCESS_TOKEN_DURATION
     const iat = Math.floor(Date.now() / 1000) - 1 // Backdate 1s
     return jsonwebtoken.sign({ identity: user.id, iat, kind: 'access' }, secret as string, {
       algorithm: 'HS512',
@@ -50,7 +51,7 @@ class AuthService {
 
   static async generateRefresh(user: User): Promise<string> {
     const secret = process.env.APP_SECRET_KEY
-    const exp = 60 * 2 // Seconds = 120 = 2 minutes
+    const exp = process.env.REFRESH_TOKEN_DURATION // Seconds = 120 = 2 minutes
     const iat = Math.floor(Date.now() / 1000) - 1 // Backdate 1s
     return jsonwebtoken.sign({ identity: user.id, iat, kind: 'refresh' }, secret as string, {
       algorithm: 'HS512',

@@ -5,9 +5,9 @@ import { AuthService } from '../../../services/auth'
 class AuthController {
   async create(req: express.Request, res: express.Response) {
     try {
-      const token = await AuthService.create(req.body)
+      const tokens = await AuthService.create(req.body)
 
-      if (token === null) {
+      if (tokens === null) {
         res.status(UNAUTHORIZED).send({
           errors: {
             message: 'Incorrect email or password'
@@ -16,7 +16,7 @@ class AuthController {
         return
       }
 
-      res.status(OK).send({ jwt_token: token })
+      res.status(OK).send(tokens)
     } catch (e: any) {
       res.status(BAD_REQUEST).send({
         errors: e.message ?? JSON.stringify(e)

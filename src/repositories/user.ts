@@ -1,5 +1,5 @@
 import { AppDataSource } from '../../config/db'
-import { User } from '../models/User'
+import { User } from '../models/user'
 import { Repository } from 'typeorm'
 import { UserService } from '../services/users'
 

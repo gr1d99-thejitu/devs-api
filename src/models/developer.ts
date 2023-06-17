@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm'
-import { User } from './User'
+import { User } from './user'
 
 @Entity('developers')
 export class Developer extends BaseEntity {
@@ -19,8 +19,8 @@ export class Developer extends BaseEntity {
   user: User
 
   @CreateDateColumn({ type: 'timestamptz', default: 'now()' })
-  public readonly createdAt: Date
+  public readonly created_at: Date
 
   @UpdateDateColumn({ type: 'timestamptz', default: 'now()', onUpdate: 'now()' })
-  public readonly updatedAt: Date
+  public readonly updated_at: Date
 }

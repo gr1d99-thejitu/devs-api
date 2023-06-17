@@ -6,11 +6,10 @@ import DevelopersController from '../controllers/developers'
 
 const developersRouter = express.Router()
 
-developersRouter.post(
-  '/developers',
-  authenticator.authenticate('jwt', { session: false }),
-  validateRequestBody(developerSchema),
-  DevelopersController.create
-)
+developersRouter
+  .use(authenticator.authenticate('jwt', { session: false }))
+  .route('/developers')
+  .post(validateRequestBody(developerSchema), DevelopersController.create)
+  .get(DevelopersController.all)
 
 export { developersRouter }

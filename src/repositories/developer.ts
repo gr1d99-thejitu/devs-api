@@ -6,16 +6,16 @@ interface DeveloperAttributes {
   user_id: string
 }
 
-class DeveloperRepository {
-  developers() {
-    return AppDataSource.getRepository(Developer)
-  }
+const developerRepository = AppDataSource.getRepository(Developer)
+//   developers() {
+//     return AppDataSource.getRepository(Developer)
+//   }
+//
+//   async create(attributes: DeveloperAttributes) {
+//     const repository = this.developers()
+//     const draftUser = repository.create(attributes)
+//     return await repository.save(draftUser)
+//   }
+// }
 
-  async create(attributes: DeveloperAttributes) {
-    const repository = this.developers()
-    const draftUser = repository.create(attributes)
-    return await repository.save(draftUser)
-  }
-}
-
-export { DeveloperRepository }
+export { developerRepository }

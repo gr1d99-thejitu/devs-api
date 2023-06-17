@@ -4,7 +4,6 @@ import { Env } from '../src/types'
 import * as packageJSON from '../package.json'
 import './db'
 import { AppDataSource } from './db'
-import process from 'process'
 
 type EnvConfig = {
   dbConfig: typeof AppDataSource

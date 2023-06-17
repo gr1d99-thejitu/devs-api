@@ -1,13 +1,13 @@
 import express from 'express'
-import { BAD_REQUEST, CREATED } from 'http-status'
+import { BAD_REQUEST, CREATED, OK } from 'http-status'
 import { QueryFailedError } from 'typeorm'
-import { DeveloperRepository } from '../../../repositories/developer'
+import { developerRepository } from '../../../repositories/developer'
 
 class DevelopersController {
   async create(req: express.Request, res: express.Response) {
-    const repository = new DeveloperRepository()
     try {
-      const developer = await repository.create(req.body)
+      const draftDeveloper = developerRepository.create(req.body)
+      const developer = await developerRepository.save(draftDeveloper)
       res.status(CREATED).send(developer)
     } catch (e: any) {
       if (e instanceof QueryFailedError) {
@@ -15,6 +15,19 @@ class DevelopersController {
         return
       }
 
+      res.status(BAD_REQUEST).send({ errors: e.message ?? JSON.stringify(e) })
+    }
+  }
+
+  async all(req: express.Request, res: express.Response) {
+    try {
+      const developers = await developerRepository.findAndCount({
+        relations: {
+          user: true
+        }
+      })
+      res.status(OK).send(developers)
+    } catch (e: any) {
       res.status(BAD_REQUEST).send({ errors: e.message ?? JSON.stringify(e) })
     }
   }

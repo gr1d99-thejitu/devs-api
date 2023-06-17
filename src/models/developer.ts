@@ -1,5 +1,6 @@
 import {
   BaseEntity,
+  Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
@@ -14,8 +15,20 @@ export class Developer extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
+  @Column({
+    nullable: false
+  })
+  title: string
+
+  @Column({
+    nullable: false
+  })
+  user_id: string
+
   @OneToOne(() => User)
-  @JoinColumn()
+  @JoinColumn({
+    name: 'user_id'
+  })
   user: User
 
   @CreateDateColumn({ type: 'timestamptz', default: 'now()' })

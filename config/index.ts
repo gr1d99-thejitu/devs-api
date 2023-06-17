@@ -4,6 +4,7 @@ import { Env } from '../src/types'
 import * as packageJSON from '../package.json'
 import './db'
 import { AppDataSource } from './db'
+import process from 'process'
 
 type EnvConfig = {
   dbConfig: typeof AppDataSource
@@ -11,6 +12,7 @@ type EnvConfig = {
   corsOptions: {
     origin: string
   }
+  appSecretKey: string | undefined
 }
 
 type TConfig = {
@@ -21,25 +23,30 @@ type TConfig = {
 // you can change the API_URL values to the ones defined in your .env.development file
 
 const APP_ENV = process.env.NODE_ENV || 'development'
+const APP_SECRET_KEY = process.env.APP_SECRET_KEY
 
 const corsOptions = {
   origin: '*'
 }
 
-const test: EnvConfig = {
+const defaultConfig = {
   version: packageJSON.version,
   corsOptions,
-  dbConfig: AppDataSource
+  dbConfig: AppDataSource,
+  appSecretKey: APP_SECRET_KEY
+}
+
+const test: EnvConfig = {
+  ...defaultConfig
 }
 
 const development: EnvConfig = {
-  version: packageJSON.version,
-  corsOptions,
-  dbConfig: AppDataSource
+  ...defaultConfig,
+  corsOptions
 }
 
 const production: EnvConfig = {
-  version: packageJSON.version,
+  ...defaultConfig,
   corsOptions,
   dbConfig: AppDataSource
 }

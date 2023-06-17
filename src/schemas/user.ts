@@ -1,5 +1,5 @@
 import z from 'zod'
-const user = z
+const userSchema = z
   .object({
     full_names: z.string({ required_error: 'Full Name is required!' }),
     email: z.string({ required_error: 'Email is required!' }).email({ message: 'Invalid email provided' }),
@@ -13,4 +13,4 @@ const user = z
     path: ['confirm_password']
   })
 
-export { user }
+export { userSchema }

@@ -1,10 +1,10 @@
 import express from 'express'
-import { developerRepository } from '../../../repositories/developer'
-import { BAD_REQUEST, CREATED, NOT_FOUND } from 'http-status'
+import { BAD_REQUEST, CREATED, NO_CONTENT, NOT_FOUND } from 'http-status'
 import { QueryFailedError } from 'typeorm'
-import { developersProgrammingLanguagesRepository } from '../../../repositories/developersProgrammingLanguages'
-import { DevelopersProgrammingLanguages } from '../../../models/developersProgrammingLanguages'
+
+import { developerRepository } from '../../../repositories/developer'
 import { programmingLanguageRepository } from '../../../repositories/programmingLanguage'
+import { developersProgrammingLanguagesRepository } from '../../../repositories/developersProgrammingLanguages'
 
 class DeveloperProgrammingLanguages {
   async create(req: express.Request, res: express.Response) {
@@ -40,6 +40,39 @@ class DeveloperProgrammingLanguages {
       }
 
       res.status(BAD_REQUEST).send({ errors: e.message ?? JSON.stringify(e) })
+    }
+  }
+
+  async delete(req: express.Request, res: express.Response) {
+    try {
+      const { id, programmingLanguageId } = req.params
+      const developerProgrammingLanguage = await developersProgrammingLanguagesRepository.findOne({
+        where: {
+          developer_id: id,
+          programming_language_id: programmingLanguageId
+        }
+      })
+
+      if (developerProgrammingLanguage === null) {
+        res.status(NOT_FOUND).send({ errors: { message: 'Developer record not found!' } })
+
+        return
+      }
+
+      if (developerProgrammingLanguage) {
+        await developersProgrammingLanguagesRepository.remove(developerProgrammingLanguage)
+      }
+
+      res.status(NO_CONTENT).send(null)
+    } catch (e: any) {
+      let error
+      if (e instanceof QueryFailedError) {
+        error = { message: e.driverError.detail }
+      } else {
+        error = { message: e.message ?? JSON.stringify(e) }
+      }
+
+      res.status(BAD_REQUEST).send({ errors: error })
     }
   }
 }

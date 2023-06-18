@@ -1,4 +1,5 @@
 import express from 'express'
+
 import { validateRequestBody } from '../../../middlewares/validate-request-body'
 import {
   createDeveloperProgrammingLanguagesSchema,
@@ -8,6 +9,7 @@ import {
 import { authenticator } from '../../../middlewares/authenticator'
 import { developersController } from '../controllers/developers'
 import { developerProgrammingLanguagesController } from '../controllers/developerProgrammingLanguages'
+import { validateRequestParams } from '../../../middlewares/validate-request-params'
 
 const developersRouter = express.Router()
 
@@ -34,6 +36,14 @@ developersRouter
     authenticator.authenticate('jwt', { session: false }),
     validateRequestBody(createDeveloperProgrammingLanguagesSchema),
     developerProgrammingLanguagesController.create
+  )
+
+developersRouter
+  .route('/developers/:id/programming-languages/:programmingLanguageId')
+  .delete(
+    authenticator.authenticate('jwt', { session: false }),
+    validateRequestParams<[id: string, programmingLanguageId: string]>(['id', 'programmingLanguageId']),
+    developerProgrammingLanguagesController.delete
   )
 
 export { developersRouter }

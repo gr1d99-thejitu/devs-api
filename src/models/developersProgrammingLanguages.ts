@@ -1,17 +1,15 @@
 import {
   Column,
   Entity,
-  ManyToOne,
   PrimaryGeneratedColumn,
   JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToOne,
   OneToMany
 } from 'typeorm'
+
 import { Developer } from './developer'
 import { ProgrammingLanguage } from './programmingLanguage'
-import { User } from './user'
 
 @Entity()
 export class DevelopersProgrammingLanguages {

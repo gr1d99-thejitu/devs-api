@@ -7,8 +7,12 @@ import { programmingLanguageSchema } from '../../../schemas/programmingLanguage'
 const programmingLanguagesRouter = express.Router()
 
 programmingLanguagesRouter
-  .use(authenticator.authenticate('jwt', { session: false }))
   .route('/programming-languages')
-  .post(validateRequestBody(programmingLanguageSchema), programmingLanguagesController.create)
+  .post(
+    authenticator.authenticate('jwt', { session: false }),
+    validateRequestBody(programmingLanguageSchema),
+    programmingLanguagesController.create
+  )
+  .get(programmingLanguagesController.all)
 
 export { programmingLanguagesRouter }

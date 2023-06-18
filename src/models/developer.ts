@@ -6,13 +6,12 @@ import {
   JoinColumn,
   JoinTable,
   ManyToMany,
-  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm'
+
 import { User } from './user'
-import { DevelopersProgrammingLanguages } from './developersProgrammingLanguages'
 import { ProgrammingLanguage } from './programmingLanguage'
 
 @Entity('developers')

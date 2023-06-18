@@ -7,9 +7,12 @@ import DevelopersController from '../controllers/developers'
 const developersRouter = express.Router()
 
 developersRouter
-  .use(authenticator.authenticate('jwt', { session: false }))
   .route('/developers')
-  .post(validateRequestBody(developerSchema), DevelopersController.create)
-  .get(DevelopersController.all)
+  .post(
+    authenticator.authenticate('jwt', { session: false }),
+    validateRequestBody(developerSchema),
+    DevelopersController.create
+  )
+  .get(authenticator.authenticate('jwt', { session: false }), DevelopersController.all)
 
 export { developersRouter }

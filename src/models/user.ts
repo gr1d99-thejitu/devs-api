@@ -5,11 +5,12 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   BaseEntity,
-  Exclusion
+  OneToOne,
+  JoinColumn
 } from 'typeorm'
+import { Developer } from './developer'
 
 @Entity('users')
-// @Exclusion('password')
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   readonly id: string
@@ -26,7 +27,8 @@ export class User extends BaseEntity {
   })
   password: string
 
-  static confirm_password: string
+  @OneToOne(() => Developer, (developer) => developer.user, { cascade: true })
+  developer: Developer
 
   @Column()
   full_names: string

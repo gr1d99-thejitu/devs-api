@@ -7,7 +7,11 @@ export class DevelopersProgrammingLanguages {
   @PrimaryGeneratedColumn('uuid')
   public readonly id: string
 
-  @ManyToOne(() => Developer, (developer) => developer.developers_programming_languages, { cascade: true })
+  @ManyToOne(() => Developer, (developer) => developer.developers_programming_languages, {
+    cascade: true,
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE'
+  })
   @JoinColumn({
     name: 'developer_id'
   })
@@ -16,7 +20,7 @@ export class DevelopersProgrammingLanguages {
   @ManyToOne(
     () => ProgrammingLanguage,
     (programming_language) => programming_language.developers_programming_languages,
-    { cascade: true }
+    { cascade: true, onUpdate: 'CASCADE', onDelete: 'CASCADE' }
   )
   @JoinColumn({
     name: 'programming_language_id'

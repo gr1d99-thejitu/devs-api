@@ -9,7 +9,11 @@
       "dev": "concurrently --kill-others \" npm run watch\" \"nodemon ./server.ts\"",
       "test": "echo \"Error: no test specified\" && exit 1",
       "start": "ts-node src/index.ts",
-      "typeorm": "typeorm-ts-node-commonjs -d ./config"
+      "typeorm": "typeorm-ts-node-commonjs",
+      "model:create": "npm run typeorm entity:create",
+      "migration:create": "npm run typeorm migration:create",
+      "migrations:run": "npm run typeorm migration:run -- -d config",
+      "migration:rollback": "npm run typeorm migration:revert -- -d config"
    },
    "keywords": [],
    "author": "",

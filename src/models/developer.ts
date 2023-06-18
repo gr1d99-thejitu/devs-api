@@ -4,6 +4,8 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -11,6 +13,7 @@ import {
 } from 'typeorm'
 import { User } from './user'
 import { DevelopersProgrammingLanguages } from './developersProgrammingLanguages'
+import { ProgrammingLanguage } from './programmingLanguage'
 
 @Entity('developers')
 export class Developer extends BaseEntity {
@@ -33,11 +36,19 @@ export class Developer extends BaseEntity {
   })
   user: User
 
-  @OneToMany(
-    () => DevelopersProgrammingLanguages,
-    (developers_programming_languages) => developers_programming_languages.developer
-  )
-  developers_programming_languages: DevelopersProgrammingLanguages[]
+  @ManyToMany(() => ProgrammingLanguage, (programming_language) => programming_language.developers)
+  @JoinTable({
+    name: 'developers_programming_languages',
+    joinColumn: {
+      name: 'developer_id',
+      referencedColumnName: 'id'
+    },
+    inverseJoinColumn: {
+      name: 'programming_language_id',
+      referencedColumnName: 'id'
+    }
+  })
+  programming_languages: ProgrammingLanguage[]
 
   @CreateDateColumn({ type: 'timestamptz', default: 'now()' })
   public readonly created_at: Date

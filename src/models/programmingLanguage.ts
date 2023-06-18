@@ -1,7 +1,17 @@
-import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm'
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany,
+  ManyToMany,
+  JoinTable
+} from 'typeorm'
 import { DevelopersProgrammingLanguages } from './developersProgrammingLanguages'
+import { Developer } from './developer'
 
-@Entity()
+@Entity('programming_languages')
 export class ProgrammingLanguage {
   @PrimaryGeneratedColumn('uuid')
   public readonly id: string
@@ -12,14 +22,22 @@ export class ProgrammingLanguage {
   })
   public name: string
 
+  @OneToMany(() => Developer, (developer) => developer.programming_languages)
+  @JoinTable({
+    name: 'developers_programming_languages',
+    joinColumn: {
+      name: 'developer_id',
+      referencedColumnName: 'id'
+    },
+    inverseJoinColumn: {
+      name: 'programming_language_id',
+      referencedColumnName: 'id'
+    }
+  })
+  developers: Developer[]
+
   @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP(6)' })
   public readonly created_at: Date
-
-  @OneToMany(
-    () => DevelopersProgrammingLanguages,
-    (developers_programming_languages) => developers_programming_languages.programming_language
-  )
-  developers_programming_languages: DevelopersProgrammingLanguages[]
 
   @UpdateDateColumn({
     type: 'timestamptz',

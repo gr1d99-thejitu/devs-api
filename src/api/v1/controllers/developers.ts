@@ -21,7 +21,9 @@ class DevelopersController {
 
   async update(req: express.Request, res: express.Response) {
     try {
-      const developer = await developerRepository.findOne({ where: { id: req.params['id'] } })
+      const developer = await developerRepository.findOne({
+        where: { id: req.params['id'] }
+      })
       if (developer === null) {
         res.status(NOT_FOUND).send({ errors: { message: 'Record not found!' } })
         return
@@ -45,7 +47,8 @@ class DevelopersController {
     try {
       const developers = await developerRepository.findAndCount({
         relations: {
-          user: true
+          user: true,
+          programming_languages: true
         }
       })
       res.status(OK).send(developers)

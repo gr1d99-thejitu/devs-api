@@ -1,7 +1,7 @@
 import express from 'express'
 import { BAD_REQUEST, CREATED, OK } from 'http-status'
 import { QueryFailedError } from 'typeorm'
-import { programmingLanguageRepository } from '../../../repositories/programmingLanguageRepository'
+import { programmingLanguageRepository } from '../../../repositories/programmingLanguage'
 
 export class ProgrammingLanguagesController {
   async create(req: express.Request, res: express.Response) {

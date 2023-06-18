@@ -11,4 +11,8 @@ const updateDeveloperSchema = createDeveloperSchema.merge(
   })
 )
 
-export { createDeveloperSchema, updateDeveloperSchema }
+const createDeveloperProgrammingLanguagesSchema = z.object({
+  programming_language_id: z.string()
+})
+
+export { createDeveloperSchema, updateDeveloperSchema, createDeveloperProgrammingLanguagesSchema }

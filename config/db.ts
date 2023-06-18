@@ -10,7 +10,7 @@ const dbOptions: DataSourceOptions = {
   username: process.env.DB_USER,
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
-  synchronize: true,
+  synchronize: false,
   logging: true,
   entities: ['./src/models/*.ts'],
   migrations: ['./db/migrations/*.ts'],

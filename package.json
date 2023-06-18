@@ -12,8 +12,9 @@
       "typeorm": "typeorm-ts-node-commonjs",
       "model:create": "npm run typeorm entity:create",
       "migration:create": "npm run typeorm migration:create",
-      "migrations:run": "npm run typeorm migration:run -- -d config",
-      "migration:rollback": "npm run typeorm migration:revert -- -d config"
+      "migration:rollback": "npm run typeorm migration:revert -- -d config",
+      "db:schema:drop": "npm run typeorm schema:drop  -- -d config",
+      "db:migrations:run": "npm run typeorm migration:run -- -d config"
    },
    "keywords": [],
    "author": "",

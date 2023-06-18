@@ -37,6 +37,6 @@ export class AddProgrammingLanguagesTable1687066717237 implements MigrationInter
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('programming_languages')
+    await queryRunner.dropTable('programming_languages', true)
   }
 }

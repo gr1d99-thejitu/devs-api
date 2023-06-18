@@ -1,11 +1,17 @@
 import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm'
 
-export class AddProgrammingLanguagesUsersTable1687067561788 implements MigrationInterface {
+export class AddDevelopersProgrammingLanguagesTable1687067561788 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'programming_languages_users',
+        name: 'developers_programming_languages',
         columns: [
+          {
+            name: 'id',
+            type: 'uuid',
+            default: 'uuid_generate_v4()',
+            isPrimary: true
+          },
           {
             name: 'programming_language_id',
             type: 'uuid',
@@ -21,7 +27,7 @@ export class AddProgrammingLanguagesUsersTable1687067561788 implements Migration
     )
 
     await queryRunner.createForeignKey(
-      'programming_languages_users',
+      'developers_programming_languages',
       new TableForeignKey({
         columnNames: ['programming_language_id'],
         referencedTableName: 'programming_languages',
@@ -30,7 +36,7 @@ export class AddProgrammingLanguagesUsersTable1687067561788 implements Migration
     )
 
     await queryRunner.createForeignKey(
-      'programming_languages_users',
+      'developers_programming_languages',
       new TableForeignKey({
         columnNames: ['developer_id'],
         referencedTableName: 'developers',
@@ -40,10 +46,10 @@ export class AddProgrammingLanguagesUsersTable1687067561788 implements Migration
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('programming_languages_users')
+    await queryRunner.dropTable('developers_programming_languages')
 
     await queryRunner.dropForeignKey(
-      'programming_languages_users',
+      'developers_programming_languages',
       new TableForeignKey({
         columnNames: ['programming_language_id'],
         referencedTableName: 'programming_languages',
@@ -52,7 +58,7 @@ export class AddProgrammingLanguagesUsersTable1687067561788 implements Migration
     )
 
     await queryRunner.dropForeignKey(
-      'programming_languages_users',
+      'developers_programming_languages',
       new TableForeignKey({
         columnNames: ['developer_id'],
         referencedTableName: 'developers',

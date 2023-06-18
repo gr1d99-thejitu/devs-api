@@ -4,11 +4,13 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm'
 import { User } from './user'
+import { DevelopersProgrammingLanguages } from './developersProgrammingLanguages'
 
 @Entity('developers')
 export class Developer extends BaseEntity {
@@ -30,6 +32,12 @@ export class Developer extends BaseEntity {
     name: 'user_id'
   })
   user: User
+
+  @OneToMany(
+    () => DevelopersProgrammingLanguages,
+    (developers_programming_languages) => developers_programming_languages.developer
+  )
+  developers_programming_languages: DevelopersProgrammingLanguages[]
 
   @CreateDateColumn({ type: 'timestamptz', default: 'now()' })
   public readonly created_at: Date

@@ -21,11 +21,23 @@ export class AddDevelopersProgrammingLanguagesTable1687067561788 implements Migr
             name: 'developer_id',
             type: 'uuid',
             isNullable: false
+          },
+          {
+            name: 'created_at',
+            type: 'timestamptz',
+            default: 'CURRENT_TIMESTAMP(6)',
+            isNullable: false
+          },
+          {
+            name: 'updated_at',
+            type: 'timestamptz',
+            isNullable: true,
+            default: 'CURRENT_TIMESTAMP(6)',
+            onUpdate: 'CURRENT_TIMESTAMP(6)'
           }
         ]
       })
     )
-
     await queryRunner.createForeignKey(
       'developers_programming_languages',
       new TableForeignKey({
@@ -46,24 +58,19 @@ export class AddDevelopersProgrammingLanguagesTable1687067561788 implements Migr
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('developers_programming_languages')
-
-    await queryRunner.dropForeignKey(
-      'developers_programming_languages',
+    await queryRunner.dropForeignKeys('developers_programming_languages', [
+      new TableForeignKey({
+        columnNames: ['developer_id'],
+        referencedTableName: 'developers',
+        referencedColumnNames: ['id']
+      }),
       new TableForeignKey({
         columnNames: ['programming_language_id'],
         referencedTableName: 'programming_languages',
         referencedColumnNames: ['id']
       })
-    )
+    ])
 
-    await queryRunner.dropForeignKey(
-      'developers_programming_languages',
-      new TableForeignKey({
-        columnNames: ['developer_id'],
-        referencedTableName: 'developers',
-        referencedColumnNames: ['id']
-      })
-    )
+    await queryRunner.dropTable('developers_programming_languages', true)
   }
 }

@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm'
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm'
 
 export class AddDevelopersTable1686750659145 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -15,7 +15,6 @@ export class AddDevelopersTable1686750659145 implements MigrationInterface {
           {
             name: 'user_id',
             type: 'varchar',
-            foreignKeyConstraintName: 'fk_developer_user_id',
             isNullable: false
           },
           {
@@ -37,6 +36,15 @@ export class AddDevelopersTable1686750659145 implements MigrationInterface {
             onUpdate: 'CURRENT_TIMESTAMP(6)'
           }
         ]
+      })
+    )
+
+    await queryRunner.createForeignKey(
+      'developers',
+      new TableForeignKey({
+        columnNames: ['user_id'],
+        referencedTableName: 'users',
+        referencedColumnNames: ['id']
       })
     )
   }

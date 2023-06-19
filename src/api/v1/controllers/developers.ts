@@ -49,6 +49,12 @@ class DevelopersController {
         relations: {
           user: true,
           programming_languages: true
+        },
+        select: {
+          programming_languages: {
+            id: true,
+            name: true
+          }
         }
       })
       res.status(OK).send(developers)

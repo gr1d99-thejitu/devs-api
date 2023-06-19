@@ -13,6 +13,12 @@ class DeveloperProgrammingLanguages {
         where: { id: req.params['id'] },
         relations: {
           programming_languages: true
+        },
+        select: {
+          programming_languages: {
+            id: true,
+            name: true
+          }
         }
       })
 

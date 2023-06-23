@@ -11,6 +11,11 @@ const pingApp = router.get('/ping', (req, res) => {
   res.status(OK).send('pong')
 })
 
-router.use('/api/v1', pingApp).use(usersRouter).use(authRouter).use(developersRouter).use(programmingLanguagesRouter)
+router.use('/ping', pingApp)
+
+router.use('/users', usersRouter)
+router.use('/auth', authRouter)
+router.use('/developers', developersRouter)
+router.use('/programming-languages', programmingLanguagesRouter)
 
 export default router

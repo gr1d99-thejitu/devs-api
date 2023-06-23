@@ -1,5 +1,12 @@
 import { config } from '../config'
 
+import apmServer from 'elastic-apm-node'
+
+apmServer.start({
+  serviceName: 'devs-api',
+  serverUrl: 'http://127.0.0.1:8200'
+})
+
 import express from 'express'
 import cors from 'cors'
 
@@ -11,6 +18,6 @@ app.use(express.json())
 app.use(cors(config.corsOptions))
 app.use(express.urlencoded({ extended: true }))
 
-app.use(appRouter)
+app.use(`/api/${config.apiVersion.current}`, appRouter)
 
 export default app

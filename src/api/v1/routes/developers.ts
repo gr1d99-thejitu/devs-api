@@ -13,37 +13,30 @@ import { validateRequestParams } from '../../../middlewares/validate-request-par
 
 const developersRouter = express.Router()
 
-developersRouter
-  .route('/developers')
-  .post(
-    authenticator.authenticate('jwt', { session: false }),
-    validateRequestBody(createDeveloperSchema),
-    developersController.create
-  )
-  .get(authenticator.authenticate('jwt', { session: false }), developersController.all)
-
-developersRouter
-  .route('/developers/:id')
-  .put(
-    authenticator.authenticate('jwt', { session: false }),
-    validateRequestBody(updateDeveloperSchema),
-    developersController.update
-  )
-
-developersRouter
-  .route('/developers/:id/programming-languages')
-  .post(
-    authenticator.authenticate('jwt', { session: false }),
-    validateRequestBody(createDeveloperProgrammingLanguagesSchema),
-    developerProgrammingLanguagesController.create
-  )
-
-developersRouter
-  .route('/developers/:id/programming-languages/:programmingLanguageId')
-  .delete(
-    authenticator.authenticate('jwt', { session: false }),
-    validateRequestParams<[id: string, programmingLanguageId: string]>(['id', 'programmingLanguageId']),
-    developerProgrammingLanguagesController.delete
-  )
+developersRouter.post(
+  '/',
+  authenticator.authenticate('jwt', { session: false }),
+  validateRequestBody(createDeveloperSchema),
+  developersController.create
+)
+developersRouter.get('/', authenticator.authenticate('jwt', { session: false }), developersController.all)
+developersRouter.put(
+  '/:id',
+  authenticator.authenticate('jwt', { session: false }),
+  validateRequestBody(updateDeveloperSchema),
+  developersController.update
+)
+developersRouter.post(
+  '/:id/programming-languages',
+  authenticator.authenticate('jwt', { session: false }),
+  validateRequestBody(createDeveloperProgrammingLanguagesSchema),
+  developerProgrammingLanguagesController.create
+)
+developersRouter.delete(
+  '/:id/programming-languages/:programmingLanguageId',
+  authenticator.authenticate('jwt', { session: false }),
+  validateRequestParams<[id: string, programmingLanguageId: string]>(['id', 'programmingLanguageId']),
+  developerProgrammingLanguagesController.delete
+)
 
 export { developersRouter }

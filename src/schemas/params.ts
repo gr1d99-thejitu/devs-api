@@ -9,6 +9,4 @@ const paramsSchema = <T extends string[]>(params: T) => {
   }, baseSchema)
 }
 
-const s = paramsSchema(['1', '2'])
-console.log(s)
 export { paramsSchema }

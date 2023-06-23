@@ -6,7 +6,7 @@ import { authenticator } from '../../../middlewares/authenticator'
 
 const usersRouter = express.Router()
 
-usersRouter.post('/users', validateRequestBody(userSchema), UsersController.create)
-usersRouter.get('/users', authenticator.authenticate('jwt', { session: false }))
+usersRouter.post('/', validateRequestBody(userSchema), UsersController.create)
+usersRouter.get('/', authenticator.authenticate('jwt', { session: false }), UsersController.all)
 
 export { usersRouter }

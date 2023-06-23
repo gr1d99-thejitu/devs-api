@@ -16,4 +16,5 @@ const dbOptions: DataSourceOptions = {
   migrations: ['./db/migrations/*.ts'],
   subscribers: ['./src/subscribers/*.ts']
 }
+
 export const AppDataSource = new DataSource(dbOptions)

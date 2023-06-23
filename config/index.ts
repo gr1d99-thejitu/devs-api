@@ -12,6 +12,9 @@ type EnvConfig = {
     origin: string
   }
   appSecretKey: string | undefined
+  apiVersion: {
+    current: string
+  }
 }
 
 type TConfig = {
@@ -29,6 +32,9 @@ const corsOptions = {
 }
 
 const defaultConfig = {
+  apiVersion: {
+    current: 'v1'
+  },
   version: packageJSON.version,
   corsOptions,
   dbConfig: AppDataSource,

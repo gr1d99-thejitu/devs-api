@@ -5,6 +5,6 @@ import { authSchema } from '../../../schemas/auth'
 
 const authRouter = express.Router()
 
-authRouter.post('/auth/login', validateRequestBody(authSchema), AuthController.create)
+authRouter.post('/login', validateRequestBody(authSchema), AuthController.create)
 
 export { authRouter }

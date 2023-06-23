@@ -1,7 +1,8 @@
 import express from 'express'
-import { BAD_REQUEST, CREATED, UNPROCESSABLE_ENTITY } from 'http-status'
+import { BAD_REQUEST, CREATED, OK, UNPROCESSABLE_ENTITY } from 'http-status'
 import { UserRepository } from '../../../repositories/user'
 import { UserService } from '../../../services/users'
+import { programmingLanguageRepository } from '../../../repositories/programmingLanguage'
 
 class UsersController {
   async create(req: express.Request, res: express.Response) {
@@ -40,6 +41,20 @@ class UsersController {
       res.status(CREATED).send(userRecord)
     } catch (e: any) {
       res.status(BAD_REQUEST).send({ errors: e.driverError ?? JSON.stringify(e) })
+    }
+  }
+
+  async all(req: express.Request, res: express.Response) {
+    try {
+      const repository = new UserRepository()
+      const usersRepository = await repository.user()
+      const users = await usersRepository.findAndCount()
+
+      res.status(OK).send(users)
+    } catch (e: any) {
+      const error = { message: e.message ?? JSON.stringify(e) }
+
+      res.status(BAD_REQUEST).send({ errors: error })
     }
   }
 }
